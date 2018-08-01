@@ -1,0 +1,26 @@
+bind main    <Esc>r !git rebase -i %(commit)
+bind diff    <Esc>r !git rebase -i %(commit)
+
+#bind generic <Ctrl-n>      move-down
+#bind generic <Ctrl-p>      move-up
+
+bind generic <Ctrl-v> move-page-down
+bind generic <Esc>v move-page-up
+
+# P で remote への push
+bind generic P      ?git push -u %(remote) %(repo:head)
+
+set main-view = id date author commit-title:graph=yes,refs=yes
+
+bind main G !@hub browse -- commit/%(commit)
+bind diff G !@hub browse -- commit/%(commit)
+bind generic H !@hub browse
+
+bind diff <Esc>H !sh -c "tig \"$(git rev-parse --show-toplevel)/%(file)\""
+
+# = で checkout
+bind main    =      ?git checkout %(branch)
+bind refs    =      ?git checkout %(branch)
+bind main    <Esc>= ?git checkout %(commit)
+
+bind generic -      ?git checkout -
